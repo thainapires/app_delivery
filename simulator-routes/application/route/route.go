@@ -1,5 +1,14 @@
 package route
 
+import (
+	"bufio"
+	"encoding/json"
+	"errors"
+	"os"
+	"strconv"
+	"strings"
+)
+
 type Route struct {
 	ID string `json:"routeId"`
 	ClientID string `json:"clientId"`
@@ -30,7 +39,7 @@ func(r *Route) LoadPositions () error {
 
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan(){
-		data := strings.Split(scanner.Text, ",")
+		data := strings.Split(scanner.Text(), ",")
 		lat, err := strconv.ParseFloat(data[0], 64)
 		if err != nil {
 			return nil
